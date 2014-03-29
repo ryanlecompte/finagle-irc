@@ -1,6 +1,5 @@
 package com.twitter.finagle.irc.server
 
-import com.twitter.finagle.irc._
 import com.twitter.finagle.irc.protocol._
 import com.twitter.concurrent.Broker
 import com.twitter.util.Future
@@ -26,10 +25,10 @@ class Session(server: Server, handle: IrcHandle) {
   private[this] var _nick = ""
   private[this] var _name = ""
   private[this] var _realName = ""
-  private[this] var _hostName = server.hostname
+  private[this] val _hostName = server.hostname
 
-  private[this] var op: Boolean = false
-  private[this] var away: Boolean = false
+  private[this] val op: Boolean = false
+  private[this] val away: Boolean = false
 
   def join(chan: Channel) {
     synchronized { chans(chan.name) = chan }
@@ -56,8 +55,10 @@ class Session(server: Server, handle: IrcHandle) {
     welcome()
   }
 
-  def quit(msg: Option[String]): Future[Unit] =
-    Future.collect(chans map { case (_, c) => c.quit(this, msg) } toSeq) map { _ => handle.close() }
+  def quit(msg: Option[String]): Future[Unit] = {
+    val quits = synchronized { chans.map { case (_, c) => c.quit(this, msg) }.toSeq }
+    Future.collect(quits) map { _ => handle.close() }
+  }
 
   def isKnown = welcomed
   def isUnKnown = !isKnown

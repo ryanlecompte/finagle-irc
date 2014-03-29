@@ -1,6 +1,5 @@
 package com.twitter.finagle.irc.server
 
-import com.twitter.finagle.irc._
 import com.twitter.finagle.irc.protocol._
 import com.twitter.concurrent.Offer
 import com.twitter.util.Future

@@ -1,13 +1,11 @@
 package com.twitter.finagle
 
-import com.twitter.finagle.irc._
 import com.twitter.finagle.irc.protocol._
 import com.twitter.finagle.client._
 import com.twitter.finagle.netty3._
 import com.twitter.finagle.server._
 import com.twitter.finagle.transport.Transport
-import com.twitter.util.Future
-import com.twitter.concurrent.{Broker, Offer}
+import com.twitter.concurrent.Offer
 import java.net.SocketAddress
 import org.jboss.netty.channel.{Channels, ChannelPipelineFactory}
 import org.jboss.netty.buffer.ChannelBuffer

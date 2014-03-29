@@ -1,7 +1,5 @@
 package com.twitter.finagle.irc.protocol
 
-import org.jboss.netty.buffer.ChannelBuffer
-
 trait Message {
   def encode: String
 }
